@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ERS Register</title>
+        <link rel="stylesheet" href="css/registerstyle.css">
+        <script src="./js/register.js" defer></script>
+    </head>
+
+    <body>
+
+        <div class = "contentContainer">
+
+            <h2 id="title">Register Account</h2>
+
+            <form id="registerForm">
+
+                <div class="entry">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" max="50" required>
+                </div>
+
+                <div class="entry">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" max="50" required>
+                </div>
+
+                <div class="entry">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" max="30" required>
+                </div>
+
+                <div class="entry">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" max="50" required>
+                </div>
+
+                <div class="entry">
+                    <label for="department">Department:</label>
+                    <select id="department" name="department" required>
+                        <option value="">Select Department</option>
+                    </select>
+                </div>
+
+                <p id="error"></p>
+                
+                <div class="entry">
+                    <button type="submit" id="registerButton">Register</button>
+                </div>
+
+            </form>
+
+
+            <a href="./index.html" id="loginLink">
+                Back to Login
+            </a>
+        </div>
+
+    </body>
+</html>

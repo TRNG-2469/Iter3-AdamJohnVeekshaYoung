@@ -1,0 +1,198 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+body {
+    background-image: url(../resources/generic-background.jpg);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+}
+
+#filterForm {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    
+    label {
+        font-weight: 700;
+        background-color: white;
+        padding: 5px;
+        border-radius: 2px;
+        border: 2px solid black;
+    }
+}
+
+#filterForm select {
+    height: 2.5rem;
+    padding: 0 0.5rem;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+#filterForm button,
+#createReimbursementButton,
+#historyButton,
+#ownReimbursementsButton,
+.reimbursement-actions button {
+    padding: 0.5rem 1rem;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#historyButton {
+    margin-top: 10px;
+}
+
+.rcontainer {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border: 3px solid black;
+    border-radius: 5px;
+    gap: 0.5rem;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.reimbursement-id {
+    width: 8%;
+}
+
+.reimbursement-status {
+    width: 12%;
+}
+
+.reimbursement-amount {
+    color: #2563eb;
+    font-weight: 600;
+    width: 10%;
+}
+
+.reimbursement-type {
+    width: 20%;
+}
+
+.reimbursement-actions {
+    display: flex;
+    gap: 0.3rem;
+    margin-left: auto;
+}
+
+#reimbursements {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    width: 100%;
+    max-width: 900px;
+    padding: 0;
+    list-style: none; 
+}
+
+#error {
+    color: red;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+#logout {
+    margin-top: 1rem;
+    padding: 0.5rem 1.5rem;
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* status color styles */
+.reimbursement-status {
+    font-weight: 600;
+}
+
+.status-approved {
+    color: #16a34a;
+}
+
+.status-denied {
+    color: #dc2626;
+}
+
+.status-pending {
+    color: #d97706;
+}
+
+/*reimbursemnt form styels*/ 
+#createReimbursementForm {
+    width: 100%;
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .entry {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            padding: 0.5rem 1rem;
+            background-color: tan;
+            border: 2px solid black;
+            color: black;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    }
+}
+
+.edit-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 0.5rem;
+}
+
+#form-buttons {
+    margin-top: 2rem;
+}
+
+.saveButton {
+    margin-right: 0.5rem;
+}
+
+.saveButton, .cancelButton {
+    padding: 0.5rem 1rem;
+    background-color: tan;
+    border: 2px solid black;
+    color: black;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+[hidden] {
+    display: none !important;
+}
