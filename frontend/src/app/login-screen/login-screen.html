@@ -1,0 +1,29 @@
+<div class="contentContainer">
+
+    <h1 id="titleE">Employee Reimbursement System</h1>
+
+    <h2>Login</h2>
+
+    <form id="loginForm">
+        <div class="entry">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required placeholder="John Doe">
+        </div>
+
+        <div class="entry">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <p id="error"></p>
+
+        <div class="entry">
+            <button type="submit" id="loginButton" routerLink="/reimbursements">Login</button>
+        </div>
+
+        <p id="caption">No account?
+            <a id="registerLink" routerLink="/register">Sign up</a>
+        </p>
+    </form>
+
+</div>
