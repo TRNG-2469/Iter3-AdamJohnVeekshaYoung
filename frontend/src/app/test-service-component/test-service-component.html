@@ -1,0 +1,10 @@
+<ul>
+    @for (reimbursement of reimbursements; track reimbursement.id) {
+        <li>
+            {{reimbursement.authorId}}
+            {{reimbursement.amount}}
+            {{reimbursement.description}}
+            {{reimbursement.status}}
+        </li>
+    }
+</ul>
