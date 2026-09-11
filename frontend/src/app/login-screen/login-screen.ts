@@ -1,10 +1,52 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterLink, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../../services/UserService';
 
 @Component({
   selector: 'app-login-screen',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './login-screen.html',
   styleUrl: './login-screen.css',
 })
-export class LoginScreen {}
+export class LoginScreen {
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private userService = inject(UserService);
+
+  loginForm: FormGroup = this.fb.group({
+    username: ['', [Validators.required]],
+    password: ['', [Validators.required, Validators.minLength(6)]]
+  });
+
+  loginError: string | null = null;
+
+  get username() { return this.loginForm.get('username')!; }
+  get password() { return this.loginForm.get('password')!; }
+
+  onSubmit(): void {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+
+    const credentials = this.loginForm.value;
+
+    // Call the real JWT login endpoint
+    this.userService.login(credentials).subscribe({
+      next: (response) => {
+        // Success: Store the JWT token returned by JwtResponse
+        localStorage.setItem('authToken', response.token);
+        localStorage.setItem('isAuthenticated', 'true');
+
+        // Navigate to the reimbursements page
+        this.router.navigate(['/reimbursements']);
+      },
+      error: (err) => {
+        // Failure: Bad credentials (401)
+        this.loginError = 'Invalid username or password.';
+      }
+    });
+  }
+}
