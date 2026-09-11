@@ -1,0 +1,51 @@
+<!--
+<li class="rcontainer">
+    <div class="reimbursement-id">RID: {{r.id}}</div>
+    <div class="reimbursement-status status-{{r.status.toLowerCase()}}">{{r.status}}</div>
+    <div class="reimbursement-amount">
+        {{r.amount.toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD"})}}
+    </div>
+    <div class="reimbursement-type">{{r.type}}</div>
+    <div class="reimbursement-description">{{r.description}}</div>
+    <div class="reimbursement-actions">
+        @if (
+            r.authorId === currentUser.id &&
+            r.status === "PENDING"
+            ) {
+                <button id="{{r.id}}">Edit</button>
+                <button id="{{r.id}}">Delete</button>
+            }
+        @if (
+            currentUser.role === "MANAGER" &&
+            r.status === "PENDING" &&
+            r.authorId !== currentUser.id) {
+                <button id="{{r.id}}">Approve</button>
+                <button id="{{r.id}}">Deny</button>
+            }
+    </div>
+</li> --> 
+
+<!-- Changed to tables via proj requirements, added pipes instead of manually doing ourselves-->
+<td>{{r.id}}</td>
+<td>{{r.status}}</td>
+<td>{{r.amount | currency:'USD'}}</td>
+<td>{{r.type}}</td>
+<td>{{r.description}}</td>
+<td>
+    @if (
+        r.authorId === currentUser.id &&
+        r.status === "PENDING"
+        ) {
+            <button id="{{r.id}}">Edit</button>
+            <button id="{{r.id}}">Delete</button>
+        }
+    @if (
+        currentUser.role === "MANAGER" &&
+        r.status === "PENDING" &&
+        r.authorId !== currentUser.id) {
+            <button id="{{r.id}}">Approve</button>
+            <button id="{{r.id}}">Deny</button>
+        }
+</td>

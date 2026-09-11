@@ -1,5 +1,5 @@
-import { Reimbursement } from '../../models/Reimbursement';
-import { ReimbursementService } from '../../services/ReimbursementService';
+import { Reimbursement } from '../../../models/Reimbursement';
+import { ReimbursementService } from '../../../services/ReimbursementService';
 import { Component } from '@angular/core';
 
 

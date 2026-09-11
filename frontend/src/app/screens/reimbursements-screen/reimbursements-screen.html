@@ -1,8 +1,10 @@
-<p>
-    Logged in as:
-    <strong id="username">{{currentUser.username}}</strong>
-    (<span id="role">{{currentUser.role}}</span>)
-</p>
+@if (currentUser) {
+    <p>
+        Logged in as:
+        <strong id="username">{{currentUser.username}}</strong>
+        (<span id="role">{{currentUser.role}}</span>)
+    </p>
+}
 
 <hr>
 
@@ -69,38 +71,10 @@
     </button>
 </div>
 
-
-<ul id="reimbursements">
-    @for (r of reimbursements; track r) {
-        <li class="rcontainer">
-            <div class="reimbursement-id">RID: {{r.id}}</div>
-            <div class="reimbursement-status status-{{r.status.toLowerCase()}}">{{r.status}}</div>
-            <div class="reimbursement-amount">
-                {{r.amount.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD"})}}
-            </div>
-            <div class="reimbursement-type">{{r.type}}</div>
-            <div class="reimbursement-description">{{r.description}}</div>
-            <div class="reimbursement-actions">
-                @if (
-                    r.authorId === currentUser.id &&
-                    r.status === "PENDING"
-                    ) {
-                        <button id="{{r.id}}">Edit</button>
-                        <button id="{{r.id}}">Delete</button>
-                    }
-                @if (
-                    currentUser.role === "MANAGER" &&
-                    r.status === "PENDING" &&
-                    r.authorId !== currentUser.id) {
-                        <button id="{{r.id}}">Approve</button>
-                        <button id="{{r.id}}">Deny</button>
-                    }
-            </div>
-        </li>
-    }
-</ul>
+<!-- Only loads the reimbursement list once it is nonnull-->
+@if (currentUser) { 
+    <app-reimbursement-list [currentUser] = "currentUser"></app-reimbursement-list>
+}
 
 <p id="error"></p>
 
