@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/AuthService';
 
 @Component({
   selector: 'app-reimbursements-screen',
@@ -8,6 +9,15 @@ import { RouterLink } from '@angular/router';
   styleUrl: './reimbursements-screen.css',
 })
 export class ReimbursementsScreen {
+
+  constructor(private authService: AuthService, private router: Router) {}
+ 
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
+
+
   currentUser:any = {
     id: 1,
     username: "jdoe",
