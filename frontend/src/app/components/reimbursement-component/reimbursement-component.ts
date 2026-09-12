@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Reimbursement } from '../../../models/Reimbursement';
-import { User } from '../../../models/User';
+import { Reimbursement } from '../../models/Reimbursement';
+import { User } from '../../models/User';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({

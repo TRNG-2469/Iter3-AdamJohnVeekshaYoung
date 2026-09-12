@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ReimbursementComponent } from '../reimbursement-component/reimbursement-component';
-import { Reimbursement } from '../../../models/Reimbursement';
+import { Reimbursement } from '../../models/Reimbursement';
 import { Input } from '@angular/core';
-import { User } from '../../../models/User';
-import { ReimbursementService } from '../../../services/ReimbursementService';
+import { User } from '../../models/User';
+import { ReimbursementService } from '../../services/ReimbursementService';
 
 @Component({
   selector: 'app-reimbursement-list',
