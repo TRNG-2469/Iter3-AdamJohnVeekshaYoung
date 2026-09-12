@@ -1,8 +1,10 @@
+@if (currentUser) {
 <p>
-    Logged in as:
-    <strong id="username">{{currentUser.username}}</strong>
-    (<span id="role">{{currentUser.role}}</span>)
+  Logged in as:
+  <strong id="username">{{currentUser.firstName}}</strong>
+  (<span id="role">{{currentUser.role}}</span>)
 </p>
+}
 
 <hr>
 
@@ -82,22 +84,24 @@
             </div>
             <div class="reimbursement-type">{{r.type}}</div>
             <div class="reimbursement-description">{{r.description}}</div>
-            <div class="reimbursement-actions">
-                @if (
-                    r.authorId === currentUser.id &&
-                    r.status === "PENDING"
-                    ) {
-                        <button id="{{r.id}}">Edit</button>
-                        <button id="{{r.id}}">Delete</button>
-                    }
-                @if (
-                    currentUser.role === "MANAGER" &&
-                    r.status === "PENDING" &&
-                    r.authorId !== currentUser.id) {
-                        <button id="{{r.id}}">Approve</button>
-                        <button id="{{r.id}}">Deny</button>
-                    }
-            </div>
+          <div class="reimbursement-actions">
+            @if (
+            currentUser &&
+            r.authorId === currentUser.id &&
+            r.status === "PENDING"
+            ) {
+            <button id="{{r.id}}">Edit</button>
+            <button id="{{r.id}}">Delete</button>
+            }
+            @if (
+            currentUser &&
+            currentUser.role === "MANAGER" &&
+            r.status === "PENDING" &&
+            r.authorId !== currentUser.id) {
+            <button id="{{r.id}}">Approve</button>
+            <button id="{{r.id}}">Deny</button>
+            }
+          </div>
         </li>
     }
 </ul>
