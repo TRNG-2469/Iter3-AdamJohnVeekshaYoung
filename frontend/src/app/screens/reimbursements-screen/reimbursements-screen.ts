@@ -1,49 +1,36 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ReimbursementList } from '../../components/reimbursement-list/reimbursement-list';
+import { User } from '../../models/User';
 import { UserService } from '../../services/UserService';
 
 @Component({
   selector: 'app-reimbursements-screen',
-  imports: [RouterLink],
+  imports: [RouterLink, ReimbursementList],
   templateUrl: './reimbursements-screen.html',
   styleUrl: './reimbursements-screen.css',
 })
-
 export class ReimbursementsScreen implements OnInit {
-  private userService = inject(UserService);
+
+  currentUser : User | null = null;
   private cdr = inject(ChangeDetectorRef);
 
-  currentUser: any = null;
+  constructor(private userService : UserService) {
+  }
 
-  reimbursements:any[] = [
-    {
-      id: 1,
-      authorId: 1,
-      status: 'APPROVED',
-      amount: 150.00,
-      type: 'LODGING',
-      description: 'Stayed at a nice hotel.'
-    },
-    {
-      id: 2,
-      authorId: 2,
-      status: 'DENIED',
-      amount: 20.75,
-      type: 'FOOD',
-      description: 'Had a little snack.'
-    },
-    {
-      id: 3,
-      authorId: 1,
-      status: 'PENDING',
-      amount: 10.50,
-      type: 'TRANSPORTATION',
-      description: 'Used public bus.'
-    },
-  ];
+  //Todo: replace with service call once auth is finished
+  ngOnInit() : void {
+     /* this.currentUser = {
+      id : 1,
 
-  ngOnInit(): void {
-    console.log('Fetching current user profile...');
+      firstName : "jdoe",
+      lastName : "jdoe",
+
+      username : "jdoerocks",
+
+      role: "EMPLOYEE",
+      departmentId : 1
+    } */
 
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
