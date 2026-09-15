@@ -10,10 +10,10 @@
 
 <h2>Reimbursement Manager</h2>
 
-<form id="filterForm">
+<form id="filterForm" (submit)="$event.preventDefault(); applyFilter()">
     <label for="status">Status:</label>
 
-    <select id="status">
+    <select id="status" [(ngModel)]="selected_Status" name="status">
         <option value="">All</option>
         <option value="PENDING">Pending</option>
         <option value="APPROVED">Approved</option>
@@ -73,7 +73,11 @@
 
 <!-- Only loads the reimbursement list once it is nonnull-->
 @if (currentUser) {
-    <app-reimbursement-list [currentUser] = "currentUser"></app-reimbursement-list>
+    <app-reimbursement-list
+      [currentUser] = "currentUser"
+      [filtered_status] = "filtered_status">
+
+    </app-reimbursement-list>
 }
 
 <p id="error"></p>

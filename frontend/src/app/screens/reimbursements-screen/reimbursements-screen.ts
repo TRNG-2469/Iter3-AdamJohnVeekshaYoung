@@ -3,17 +3,21 @@ import { RouterLink } from '@angular/router';
 import { ReimbursementList } from '../../components/reimbursement-list/reimbursement-list';
 import { User } from '../../models/User';
 import { UserService } from '../../services/UserService';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-reimbursements-screen',
-  imports: [RouterLink, ReimbursementList],
+  imports: [RouterLink, ReimbursementList, FormsModule],
   templateUrl: './reimbursements-screen.html',
   styleUrl: './reimbursements-screen.css',
 })
 export class ReimbursementsScreen implements OnInit {
 
   currentUser : User | null = null;
+  selected_Status: string='';
+  filtered_status: string ='';
   private cdr = inject(ChangeDetectorRef);
+
 
   constructor(private userService : UserService) {
   }
@@ -42,5 +46,11 @@ export class ReimbursementsScreen implements OnInit {
         console.error('getCurrentUser failed with error:', err);
       }
     });
+
+
+  }
+  applyFilter() {
+    this.filtered_status=this.selected_Status;
   }
 }
+
