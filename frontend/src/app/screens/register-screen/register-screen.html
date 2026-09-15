@@ -1,0 +1,44 @@
+<div class="register-container">
+  <h2>Register New User</h2>
+
+  <form (ngSubmit)="onRegister()">
+    <div class="entry">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" [(ngModel)]="formData.firstName" name="firstName" required>
+    </div>
+
+    <div class="entry">
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" [(ngModel)]="formData.lastName" name="lastName" required>
+    </div>
+
+    <div class="entry">
+      <label for="username">Username:</label>
+      <input type="text" id="username" [(ngModel)]="formData.username" name="username" required>
+    </div>
+
+    <div class="entry">
+      <label for="password">Password:</label>
+      <input type="password" id="password" [(ngModel)]="formData.password" name="password" required>
+    </div>
+
+    <div class="entry">
+      <label for="department">Department:</label>
+      <select id="department" [(ngModel)]="formData.departmentId" name="departmentId" required>
+        <option [ngValue]="null" disabled>Select a department</option>
+        @for (dept of departments; track dept.departmentId) {
+        <option [value]="dept.departmentId">{{ dept.departmentName }}</option>
+        }
+      </select>
+    </div>
+
+    @if (errorMessage) {
+    <p id="error" style="color: red;">{{ errorMessage }}</p>
+    }
+
+    <div class="entry" id="form-buttons">
+      <button type="submit">Register</button>
+      <button type="button" routerLink="/">Cancel</button>
+    </div>
+  </form>
+</div>

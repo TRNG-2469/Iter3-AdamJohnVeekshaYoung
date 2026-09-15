@@ -1,0 +1,50 @@
+<div class="contentContainer">
+
+  <h1 id="titleE">Employee Reimbursement System</h1>
+
+  <h2>Login</h2>
+
+  <!-- [formGroup] and (ngSubmit) added here -->
+  <form id="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <div class="entry">
+      <label for="username">Username:</label>
+      <!-- formControlName added here -->
+      <input type="text" id="username" formControlName="username" placeholder="John Doe">
+
+      @if (username.touched && username.errors) {
+      <p class="error-text" style="color: red; font-size: 12px; margin-top: 4px;">
+        @if (username.errors['required']) { Username is required. }
+      </p>
+      }
+    </div>
+
+    <div class="entry">
+      <label for="password">Password:</label>
+      <!-- formControlName added here -->
+      <input type="password" id="password" formControlName="password">
+
+      @if (password.touched && password.errors) {
+      <p class="error-text" style="color: red; font-size: 12px; margin-top: 4px;">
+        @if (password.errors['required']) { Password is required. }
+        @if (password.errors['minlength']) { Password must be at least 6 characters. }
+      </p>
+      }
+    </div>
+
+    <!-- Dynamic login failure message -->
+    @if (loginError) {
+    <p id="error" style="color: red;">{{ loginError }}</p>
+    }
+
+    <div class="entry">
+      <!-- Removed routerLink from button because routing is now handled programmatically in onSubmit() after validation -->
+      <button type="submit" id="loginButton" [disabled]="loginForm.invalid && loginForm.touched">Login</button>
+    </div>
+
+    <p id="caption">No account?
+      <a id="registerLink" routerLink="/register">Sign up</a>
+    </p>
+  </form>
+
+</div>

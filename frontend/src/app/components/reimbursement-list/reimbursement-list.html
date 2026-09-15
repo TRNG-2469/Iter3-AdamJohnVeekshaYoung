@@ -1,0 +1,25 @@
+<!--<ul id="reimbursements">
+    @for (r of reimbursements; track r.id) {
+        <app-reimbursement-component [r] = "r" [currentUser] = "currentUser"></app-reimbursement-component>
+    }
+</ul> -->
+
+<table class="reimbursements">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- Note: apparently with tables, need to provide attribute selector or angular gets angry-->
+        @for (r of reimbursements; track r.id) {
+            <tr app-reimbursement-component [r] = "r" [currentUser] = "currentUser"></tr>
+        }
+    </tbody>
+</table>
