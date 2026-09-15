@@ -23,6 +23,14 @@ export class ReimbursementList implements OnInit, OnChanges {
   @Input()
   filtered_status! : string;
 
+  @Input()
+  filtered_department!: string;
+
+  private authorDepartmentMap: { [key: number]: string } = {
+    1: 'Engineering',
+    7: 'Finance',
+  };
+
   constructor(private reimbursementService : ReimbursementService) {
 
   }
@@ -63,6 +71,18 @@ export class ReimbursementList implements OnInit, OnChanges {
         submittedAt: '2026-08-25T23:03:28.276475',
         resolvedAt: null
       },
+
+      {
+        id: 5,
+        authorId: 7,
+        status: 'PENDING',
+        amount: 20.75,
+        type: 'TRANSPORTATION',
+        description: 'Used a taxi.',
+        resolverId: null,
+        submittedAt: '2026-08-25T23:03:28.276475',
+        resolvedAt: null
+      },
     ];
 
     this.reimbursements=[...this.allReimbursements];
@@ -81,19 +101,20 @@ export class ReimbursementList implements OnInit, OnChanges {
   }
 
     ngOnChanges(changes: SimpleChanges): void {
-      if (changes['filtered_status']) {
+      if (changes['filtered_status'] || changes['filtered_department']){
       this.applyFilter();
     }
   }
 
-    applyFilter() {
-      if (!this.filtered_status || this.filtered_status === '') {
-        this.reimbursements = [...this.allReimbursements];
-      } else {
-        this.reimbursements = this.allReimbursements.filter(
-          item => item.status === this.filtered_status
-        );
-      }
+  applyFilter() {
+    this.reimbursements = this.allReimbursements.filter(item => {
+      const matchesStatus = !this.filtered_status || item.status === this.filtered_status;
+
+      const departmentName = this.authorDepartmentMap[item.authorId] || '';
+      const matchesDepartment = !this.filtered_department || departmentName === this.filtered_department;
+
+      return matchesStatus && matchesDepartment;
+    });
 
 }
 }

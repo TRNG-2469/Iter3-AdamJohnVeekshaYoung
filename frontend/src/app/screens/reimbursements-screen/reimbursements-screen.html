@@ -4,7 +4,7 @@
   <strong id="username">{{currentUser.firstName}}</strong>
   (<span id="role">{{currentUser.role}}</span>)
 </p>
-}
+
 
 <hr>
 
@@ -20,13 +20,16 @@
         <option value="DENIED">Denied</option>
     </select>
 
-    <span id="departmentFilter" hidden>
-        <label for="department">Department:</label>
+  @if (currentUser.role === 'MANAGER') {
+  <label for="department">Department:</label>
 
-        <select id="department">
-            <option value="">All</option>
-        </select>
-    </span>
+  <select id="department" [(ngModel)]="selected_Department" name="department">
+    <option value="">All</option>
+    @for (dept of departments; track dept.departmentId){
+    <option [value]="dept.departmentName">{{ dept.departmentName }}</option>
+    }
+  </select>
+  }
 
     <button type="submit">Filter</button>
 </form>
@@ -72,14 +75,17 @@
 </div>
 
 <!-- Only loads the reimbursement list once it is nonnull-->
-@if (currentUser) {
+
     <app-reimbursement-list
       [currentUser] = "currentUser"
-      [filtered_status] = "filtered_status">
+      [filtered_status] = "filtered_status"
+      [filtered_department]="filtered_department">
 
     </app-reimbursement-list>
-}
+
 
 <p id="error"></p>
 
 <button id="logout" routerLink="/">Logout</button>
+
+}
