@@ -1,0 +1,28 @@
+Reimbursements
+E=employee, M=manager
+
+*Reimbursements Controller
+
+GET /api/reimbursements E: See own reimbursements // M: See all reimbursements
+GET /api/reimbursements?[status=X,department=Y] E: Filter by status, 403 on department // M: Filter by both possible
+
+GET /api/reimbursements/{id} E: 403 on usage // M: View reimbursement by id
+GET /api/reimbursements/history E: 403 on usage // M: View reimbursement resolved history
+
+POST /api/reimbursements                BODY: { amount, description, type } E, M: Create new reimbursement
+PATCH /api/reimbursements/{id}:         BODY: { amount, description, type } E, M: edit their PENDING reimbursement
+PATCH /api/reimbursements/{id}/status   BODY: { status } E: 403, M: approve or deny only PENDING, cannot change to pending,
+
+DELETE /api/reimbursements/{id} E, M: can delete only PENDING reimbursements, can only delete own
+
+
+*USER CONTROLLER
+
+GET /api/users: E: 403, M: see all users
+GET /api/users/{id}: E: 403, M: see user by id
+
+POST /api/users: BODY: { firstName, lastName, password, role, username, departmentId } E, M: create a new user (role blocked)
+
+
+*AUTH
+/api/auth/login

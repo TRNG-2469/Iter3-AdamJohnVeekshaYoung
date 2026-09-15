@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../services/UserService';
+import { AuthService } from '../../services/AuthService';
 
 @Component({
   selector: 'app-login-screen',
@@ -14,6 +15,7 @@ export class LoginScreen {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private userService = inject(UserService);
+  private authService = inject(AuthService)
 
   loginForm: FormGroup = this.fb.group({
     username: ['', [Validators.required]],
@@ -31,14 +33,14 @@ export class LoginScreen {
       return;
     }
 
-    const credentials = this.loginForm.value;
+    const {username, password} = this.loginForm.value;
 
     // Call the real JWT login endpoint
-    this.userService.login(credentials).subscribe({
+    this.authService.login(username, password).subscribe({
       next: (response) => {
         // Success: Store the JWT token returned by JwtResponse
-        localStorage.setItem('authToken', response.token);
-        localStorage.setItem('isAuthenticated', 'true');
+        //localStorage.setItem('authToken', response.token);
+        //localStorage.setItem('isAuthenticated', 'true');
 
         // Navigate to the reimbursements page
         this.router.navigate(['/reimbursements']);
