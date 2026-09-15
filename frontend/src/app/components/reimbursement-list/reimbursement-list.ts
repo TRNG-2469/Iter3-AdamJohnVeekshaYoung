@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, inject, ChangeDetectorRef } from '@angular/core';
 import { ReimbursementComponent } from '../reimbursement-component/reimbursement-component';
 import { Reimbursement } from '../../models/Reimbursement';
 import { Input } from '@angular/core';
@@ -26,10 +26,7 @@ export class ReimbursementList implements OnInit, OnChanges {
   @Input()
   filtered_department!: string;
 
-  private authorDepartmentMap: { [key: number]: string } = {
-    1: 'Engineering',
-    7: 'Finance',
-  };
+  private cdr = inject(ChangeDetectorRef);
 
   constructor(private reimbursementService : ReimbursementService) {
 
@@ -37,55 +34,60 @@ export class ReimbursementList implements OnInit, OnChanges {
 
   //Todo: replace with service once auth finished
   ngOnInit() {
-    this.allReimbursements = [
-      {
-        id: 1,
-        authorId: 1,
-        status: 'APPROVED',
-        amount: 150.00,
-        type: 'LODGING',
-        description: 'Stayed at a nice hotel.',
-        resolverId: null,
-        submittedAt: '2026-08-25T22:06:01.951029',
-        resolvedAt: null
-      },
-      {
-        id: 2,
-        authorId: 2,
-        status: 'DENIED',
-        amount: 20.75,
-        type: 'FOOD',
-        description: 'Had a little snack.',
-        resolverId: null,
-        submittedAt: '2026-08-26T16:54:48.857607',
-        resolvedAt: null
-      },
-      {
-        id: 3,
-        authorId: 1,
-        status: 'PENDING',
-        amount: 10.50,
-        type: 'TRANSPORTATION',
-        description: 'Used public bus.',
-        resolverId: null,
-        submittedAt: '2026-08-25T23:03:28.276475',
-        resolvedAt: null
-      },
+    this.applyFilter();
+    // // this.allReimbursements = [
+    // //   {
+    // //     id: 1,
+    // //     authorId: 1,
+    // //     status: 'APPROVED',
+    // //     amount: 150.00,
+    // //     type: 'LODGING',
+    // //     description: 'Stayed at a nice hotel.',
+    // //     resolverId: null,
+    // //     submittedAt: '2026-08-25T22:06:01.951029',
+    // //     resolvedAt: null,
+    // //     departmentId:1
+    // //   },
+    // //   {
+    // //     id: 2,
+    // //     authorId: 2,
+    // //     status: 'DENIED',
+    // //     amount: 20.75,
+    // //     type: 'FOOD',
+    // //     description: 'Had a little snack.',
+    // //     resolverId: null,
+    // //     submittedAt: '2026-08-26T16:54:48.857607',
+    // //     resolvedAt: null,
+    // //
+    // //   },
+    // //   {
+    // //     id: 3,
+    // //     authorId: 1,
+    // //     status: 'PENDING',
+    // //     amount: 10.50,
+    // //     type: 'TRANSPORTATION',
+    // //     description: 'Used public bus.',
+    // //     resolverId: null,
+    // //     submittedAt: '2026-08-25T23:03:28.276475',
+    // //     resolvedAt: null,
+    // //
+    // //   },
+    // //
+    // //   {
+    // //     id: 5,
+    // //     authorId: 7,
+    // //     status: 'PENDING',
+    // //     amount: 20.75,
+    // //     type: 'TRANSPORTATION',
+    // //     description: 'Used a taxi.',
+    // //     resolverId: null,
+    // //     submittedAt: '2026-08-25T23:03:28.276475',
+    // //     resolvedAt: null,
+    //
+    //   },
+    // ];
 
-      {
-        id: 5,
-        authorId: 7,
-        status: 'PENDING',
-        amount: 20.75,
-        type: 'TRANSPORTATION',
-        description: 'Used a taxi.',
-        resolverId: null,
-        submittedAt: '2026-08-25T23:03:28.276475',
-        resolvedAt: null
-      },
-    ];
-
-    this.reimbursements=[...this.allReimbursements];
+    // this.reimbursements=[...this.allReimbursements];
 
     /*
       this.reimbursementService.getReimbursements().subscribe({
@@ -106,14 +108,22 @@ export class ReimbursementList implements OnInit, OnChanges {
     }
   }
 
+
+
   applyFilter() {
-    this.reimbursements = this.allReimbursements.filter(item => {
-      const matchesStatus = !this.filtered_status || item.status === this.filtered_status;
+    // Convert department string to a number if present, since backend expects Integer
+    const deptId = this.filtered_department ? Number(this.filtered_department) : undefined;
+    const status = this.filtered_status || undefined;
 
-      const departmentName = this.authorDepartmentMap[item.authorId] || '';
-      const matchesDepartment = !this.filtered_department || departmentName === this.filtered_department;
-
-      return matchesStatus && matchesDepartment;
+    //calls the reimbursement service to get reimbursements based on the selected status and department
+    this.reimbursementService.getReimbursements(status as any, deptId).subscribe({
+      next: (reimbursements) => {
+        this.reimbursements = reimbursements;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error("Failed to fetch filtered reimbursements " + err);
+      }
     });
 
 }

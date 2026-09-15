@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Reimbursement, ReimbursementStatus } from "../models/Reimbursement";
@@ -14,10 +14,10 @@ export class ReimbursementService {
     //Note: set localhost to 8081
     private readonly url = "http://localhost:8081/api/reimbursements";
 
-    constructor(private http : HttpClient) {}; 
+    constructor(private http : HttpClient) {};
 
-    //Pass in optional status, departmentId 
-    //If manager calls, gets all the reimbursements of all users 
+    //Pass in optional status, departmentId
+    //If manager calls, gets all the reimbursements of all users
     getReimbursements(status? : ReimbursementStatus, departmentId? : number) : Observable<Reimbursement[]> {
 
         let params = new HttpParams();
@@ -31,10 +31,18 @@ export class ReimbursementService {
             params = params.set('departmentId', departmentId);
         }
 
-        return this.http.get<Reimbursement[]>(this.url, {params});
+      const token = localStorage.getItem('authToken');
+
+      // Build headers with the Bearer token
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+
+      // Pass both headers and params into the request
+      return this.http.get<Reimbursement[]>(this.url, { headers, params });
     }
 
-    //Manager calls to get their own reimbursements 
+    //Manager calls to get their own reimbursements
     getManagerOwnedReimbursements() : Observable<Reimbursement[]> {
         return this.http.get<Reimbursement[]>(`${this.url}/own`);
     }
