@@ -13,8 +13,6 @@ import { ReimbursementService } from '../../services/ReimbursementService';
 })
 export class ReimbursementList implements OnInit, OnChanges {
 
-  allReimbursements: Reimbursement[]=[];
-
   reimbursements : Reimbursement[] | null = null;
 
   @Input()
@@ -26,28 +24,12 @@ export class ReimbursementList implements OnInit, OnChanges {
   @Input()
   filtered_department!: string;
 
-  private authorDepartmentMap: { [key: number]: string } = {
-    1: 'Engineering',
-    7: 'Finance',
-  };
-
   constructor(private reimbursementService : ReimbursementService, private cdr: ChangeDetectorRef) {
 
   }
 
   ngOnInit() {
-
-    this.reimbursementService.getReimbursements().subscribe({
-      next: (reimbursements) => {
-
-        this.allReimbursements = reimbursements;
-        this.reimbursements = [...this.allReimbursements];
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error("FAILED:", err);
-      }
-    });
+    this.applyFilter();
   }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -56,14 +38,20 @@ export class ReimbursementList implements OnInit, OnChanges {
     }
   }
 
-  applyFilter() {
-    this.reimbursements = this.allReimbursements.filter(item => {
-      const matchesStatus = !this.filtered_status || item.status === this.filtered_status;
+    applyFilter() {
+    // Convert department string to a number if present, since backend expects Integer
+    const deptId = this.filtered_department ? Number(this.filtered_department) : undefined;
+    const status = this.filtered_status || undefined;
 
-      const departmentName = this.authorDepartmentMap[item.authorId] || '';
-      const matchesDepartment = !this.filtered_department || departmentName === this.filtered_department;
-
-      return matchesStatus && matchesDepartment;
+    //calls the reimbursement service to get reimbursements based on the selected status and department
+    this.reimbursementService.getReimbursements(status as any, deptId).subscribe({
+      next: (reimbursements) => {
+        this.reimbursements = reimbursements;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error("Failed to fetch filtered reimbursements " + err);
+      }
     });
 
 }
