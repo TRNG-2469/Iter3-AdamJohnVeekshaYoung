@@ -1,4 +1,4 @@
-@if (currentUser) {
+@if (currentUser(); as currentUser) {
 <p>
   Logged in as:
   <strong id="username">{{currentUser.firstName}}</strong>
@@ -25,7 +25,7 @@
 
   <select id="department" [(ngModel)]="selected_Department" name="department">
     <option value="">All</option>
-    @for (dept of departments; track dept.departmentId){
+    @for (dept of departments(); track dept.departmentId){
     <option [value]="dept.departmentId">{{ dept.departmentName }}</option>
     }
   </select>
@@ -36,36 +36,7 @@
 
 
 <div>
-    <button id="createReimbursementButton">Create Reimbursement</button>
-
-    <form id="createReimbursementForm" hidden>
-        <div class="entry">
-            <label for="amount">Amount ($):</label>
-            <input type="number" id="amount" name="amount" step="0.01" min="0.01" max="999999" required>
-        </div>
-
-        <div class="entry">
-            <label for="type">Type:</label>
-            <select id="type" name="type" required>
-                <option value="TRAVEL">Travel</option>
-                <option value="FOOD">Food</option>
-                <option value="LODGING">Lodging</option>
-                <option value="MEDICAL">Medical</option>
-                <option value="TRANSPORTATION">Transportation</option>
-                <option value="OTHER">Other</option>
-            </select>
-        </div>
-
-        <div class="entry">
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" maxlength="255"></textarea>
-        </div>
-
-        <div class="entry" id="form-buttons">
-            <button type="button" id="cancelCreateReimbursement">Cancel</button>
-            <button type="submit">Submit</button>
-        </div>
-    </form>
+    <button (click)="openModal()">Create Reimbursement</button>
 
     <button id="historyButton" hidden>Reimbursement History</button>
 
@@ -80,7 +51,6 @@
       [currentUser] = "currentUser"
       [filtered_status] = "filtered_status"
       [filtered_department]="filtered_department">
-
     </app-reimbursement-list>
 
 

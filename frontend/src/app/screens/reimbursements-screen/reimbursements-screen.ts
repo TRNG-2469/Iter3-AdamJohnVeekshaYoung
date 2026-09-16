@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, inject, signal, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ReimbursementList } from '../../components/reimbursement-list/reimbursement-list';
 import { User } from '../../models/User';
@@ -6,6 +6,8 @@ import { UserService } from '../../services/UserService';
 import {FormsModule} from '@angular/forms';
 import { DepartmentService } from '../../services/DepartmentService';
 import { Department } from '../../models/Department';
+import { CreateRComponent } from '../../create-r-component/create-r-component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-reimbursements-screen',
@@ -15,19 +17,23 @@ import { Department } from '../../models/Department';
 })
 export class ReimbursementsScreen implements OnInit {
 
-  currentUser : User | null = null;
+  //Since we already created state (reimbursements) for list to control, we have to use viewchild to 
+  //manually trigger the refresh (could also move state up)
+  @ViewChild(ReimbursementList) 
+  reimbursementList! : ReimbursementList;
 
-  departments: Department[]=[];
-
+  //Changed state to signals, passed to children as instances of models 
+  currentUser = signal<User | null>(null);
+  departments = signal<Department[]>([]);
+  
   selected_Status: string='';
   filtered_status: string ='';
 
   selected_Department: string = '';
   filtered_department: string = '';
 
-  private cdr = inject(ChangeDetectorRef);
   private departmentService=inject(DepartmentService);
-
+  private dialog = inject(MatDialog);
 
   constructor(private userService : UserService) {
   }
@@ -38,8 +44,7 @@ export class ReimbursementsScreen implements OnInit {
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
         console.log('User successfully fetched:', user);
-        this.currentUser = user;
-        this.cdr.detectChanges();
+        this.currentUser.set(user);
       },
       error: (err) => {
         console.error('getCurrentUser failed with error:', err);
@@ -47,11 +52,9 @@ export class ReimbursementsScreen implements OnInit {
     });
 
     this.departmentService.getDepartments().subscribe({
-
       next: (data) => {
-        console.log('Departments response from backend:', data); // Check F12 console to see the exact keys!
-        this.departments = data;
-        this.cdr.detectChanges()
+        console.log('Departments response from backend:', data); 
+        this.departments.set(data);
       },
       error: (err) => {
         console.error('Failed to load departments', err);
@@ -64,4 +67,19 @@ export class ReimbursementsScreen implements OnInit {
     this.filtered_status=this.selected_Status;
     this.filtered_department = this.selected_Department;
   }
+
+  openModal() { 
+    console.log("opened modal"); 
+    const dialogRef = this.dialog.open(CreateRComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'created') {
+        //as of right now, we refresh the reimbursements by calling applyFilter() 
+        this.reimbursementList.applyFilter();
+      }
+    })
+  }
+
 }
