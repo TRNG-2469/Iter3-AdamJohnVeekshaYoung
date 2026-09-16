@@ -57,7 +57,7 @@ export class ReimbursementList implements OnInit, OnChanges {
 }
 }
 
-/* Test data 
+/* Test data
 
  /*this.allReimbursements = [
       {
@@ -105,7 +105,7 @@ export class ReimbursementList implements OnInit, OnChanges {
         submittedAt: '2026-08-25T23:03:28.276475',
         resolvedAt: null
       },
-    ]; 
-      this.reimbursements=[...this.allReimbursements]; 
+    ];
+      this.reimbursements=[...this.allReimbursements];
 
     */
