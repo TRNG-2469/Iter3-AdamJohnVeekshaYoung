@@ -19,8 +19,13 @@ export class ReimbursementComponent {
   @Input() 
   currentUser! : User;
 
+  //Emitted after a reimbursement status is successfully resolved, so the list can refresh
   @Output()
   resolved = new EventEmitter<void>();
+
+  //Emitted after a reimbursement is successfully deleted, so the list can refresh
+  @Output()
+  deleted = new EventEmitter<void>();
 
   constructor(private reimbursementService : ReimbursementService) { }
 
@@ -39,6 +44,17 @@ export class ReimbursementComponent {
       },
       error: (err) => {
         console.error(`Failed to ${status === 'APPROVED' ? 'approve' : 'deny'} reimbursement ${this.r.id}`, err);
+      }
+    });
+  }
+
+  delete() {
+    this.reimbursementService.deleteReimbursementById(this.r.id).subscribe({
+      next: () => {
+        this.deleted.emit();
+      },
+      error: (err) => {
+        console.error(`Failed to delete reimbursement ${this.r.id}`, err);
       }
     });
   }

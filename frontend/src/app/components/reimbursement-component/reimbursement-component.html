@@ -39,7 +39,7 @@
         r.status === "PENDING"
         ) {
             <button id="{{r.id}}">Edit</button>
-            <button id="{{r.id}}">Delete</button>
+            <button id="{{r.id}}" (click)="delete()">Delete</button>
         }
     @if (
         currentUser.role === "MANAGER" &&
