@@ -34,17 +34,6 @@ export class ReimbursementsScreen implements OnInit {
 
   //Todo: replace with service call once auth is finished
   ngOnInit() : void {
-     /* this.currentUser = {
-      id : 1,
-
-      firstName : "jdoe",
-      lastName : "jdoe",
-
-      username : "jdoerocks",
-
-      role: "EMPLOYEE",
-      departmentId : 1
-    } */
 
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
@@ -76,4 +65,3 @@ export class ReimbursementsScreen implements OnInit {
     this.filtered_department = this.selected_Department;
   }
 }
-

@@ -24,11 +24,11 @@ export class UserService {
   }
 
   getCurrentUser(): Observable<User> {
-    const token = localStorage.getItem('authToken');
+    /*const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
-    });
-    return this.http.get<User>(`${this.url}/me`, { headers });
+    }); */
+    return this.http.get<User>(`${this.url}/me`/*, { headers }*/);
   }
 
 
