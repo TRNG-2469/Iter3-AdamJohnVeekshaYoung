@@ -45,7 +45,7 @@
         currentUser.role === "MANAGER" &&
         r.status === "PENDING" &&
         r.authorId !== currentUser.id) {
-            <button id="{{r.id}}">Approve</button>
-            <button id="{{r.id}}">Deny</button>
+            <button id="{{r.id}}" (click)="approve()">Approve</button>
+            <button id="{{r.id}}" (click)="deny()">Deny</button>
         }
 </td>
