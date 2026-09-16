@@ -1,0 +1,38 @@
+
+<h2 mat-dialog-title>Create Reimbursement</h2>
+
+<mat-dialog-content>
+    <form (ngSubmit)="submitForm()" id="createReimbursementForm">
+        
+        <div class="entry">
+            <label for="amount">Amount ($):</label>
+            <input [(ngModel)] = "formData.amount" type="number" id="amount" name="amount" step="0.01" min="0.01" max="999999" required>
+        </div>
+
+        <div class="entry">
+            <label for="type">Type:</label>
+            <select [(ngModel)] = "formData.type" id="type" name="type" required>
+                <option value="TRAVEL">Travel</option>
+                <option value="FOOD">Food</option>
+                <option value="LODGING">Lodging</option>
+                <option value="MEDICAL">Medical</option>
+                <option value="TRANSPORTATION">Transportation</option>
+                <option value="OTHER">Other</option>
+            </select>
+        </div>
+
+        <div class="entry">
+            <label for="description">Description:</label>
+            <textarea [(ngModel)] = "formData.description" id="description" name="description" maxlength="255"></textarea>
+        </div>
+
+        @if (errorMessage()) {
+            <p class="error">{{ errorMessage() }}</p>
+        }
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button type="button" (click) = "closeModal()">Cancel</button>
+    <button type="submit" form="createReimbursementForm">Submit</button>
+</mat-dialog-actions>

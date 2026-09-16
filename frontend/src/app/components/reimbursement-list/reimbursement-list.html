@@ -12,7 +12,7 @@
 
     <tbody>
         <!-- Note: apparently with tables, need to provide attribute selector or angular gets angry-->
-        @for (r of reimbursements; track r.id) {
+        @for (r of reimbursements(); track r.id) {
             <tr app-reimbursement-component [r] = "r" [currentUser] = "currentUser"></tr>
         }
     </tbody>

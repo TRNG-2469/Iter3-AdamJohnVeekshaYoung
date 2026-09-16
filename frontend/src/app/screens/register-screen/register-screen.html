@@ -26,7 +26,7 @@
       <label for="department">Department:</label>
       <select id="department" [(ngModel)]="formData.departmentId" name="departmentId" required>
         <option [ngValue]="null" disabled>Select a department</option>
-        @for (dept of departments; track dept.departmentId) {
+        @for (dept of departments(); track dept.departmentId) {
         <option [value]="dept.departmentId">{{ dept.departmentName }}</option>
         }
       </select>

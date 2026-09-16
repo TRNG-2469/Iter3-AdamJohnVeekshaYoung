@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -24,14 +24,14 @@ export class RegisterScreen implements OnInit {
     departmentId: null
   };
 
-  departments: any[] = [];
+  departments = signal<any[]>([]);
   errorMessage: string = '';
 
   ngOnInit(): void {
     this.http.get<any[]>('http://localhost:8081/api/departments').subscribe({
       next: (data) => {
         console.log('Departments response from backend:', data); // Check F12 console to see the exact keys!
-        this.departments = data;
+        this.departments.set(data);
       },
       error: (err) => {
         console.error('Failed to load departments', err);
