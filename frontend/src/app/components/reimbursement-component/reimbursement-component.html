@@ -25,7 +25,7 @@
                 <button id="{{r.id}}">Deny</button>
             }
     </div>
-</li> --> 
+</li> -->
 
 <!-- Changed to tables via proj requirements, added pipes instead of manually doing ourselves-->
 <td>{{r.id}}</td>
@@ -40,14 +40,14 @@
             r.status === "PENDING"
             ) {
                 <button id="{{r.id}}" (click)="activateEditMode()">Edit</button>
-                <button id="{{r.id}}">Delete</button>
+                <button id="{{r.id}}" (click)="delete()">Delete</button>
             }
         @if (
             currentUser.role === "MANAGER" &&
             r.status === "PENDING" &&
             r.authorId !== currentUser.id) {
-                <button id="{{r.id}}">Approve</button>
-                <button id="{{r.id}}">Deny</button>
+                <button id="{{r.id}}" (click)="approve()">Approve</button>
+                <button id="{{r.id}}" (click)="deny()">Deny</button>
             }
     </td>
 } @else {
