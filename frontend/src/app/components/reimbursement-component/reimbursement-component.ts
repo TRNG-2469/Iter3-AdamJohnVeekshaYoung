@@ -1,11 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { Reimbursement } from '../../models/Reimbursement';
 import { User } from '../../models/User';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe} from '@angular/common';
+import { ReimbursementService } from '../../services/ReimbursementService';
+import { EditReimbursementRequest } from '../../dtos/requests/EditReimbursement';
+import { ReimbursementType } from '../../models/Reimbursement';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'tr[app-reimbursement-component]',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, FormsModule],
   templateUrl: './reimbursement-component.html',
   styleUrl: './reimbursement-component.css',
 })
@@ -16,5 +20,52 @@ export class ReimbursementComponent {
 
   @Input() 
   currentUser! : User;
+
+  @Output()
+  reimbursementUpdated = new EventEmitter<Reimbursement>();
+
+  editMode : boolean = false;
+
+  newAmount : Number = 0;
+  newType : ReimbursementType = 'OTHER';
+  newDescription : string | null = null;
+
+  constructor(private reimbursementService : ReimbursementService, private cdr: ChangeDetectorRef) {
+
+  }
+
+  activateEditMode(): void {
+    this.newAmount = this.r.amount;
+    this.newType = this.r.type;
+    this.newDescription = this.r.description;
+    this.editMode = true;
+  }
+
+  deactivateEditMode(): void {
+    this.editMode = false;
+  }
+
+  saveChanges(): void {
+    const requestBody : EditReimbursementRequest = {
+        amount : this.newAmount,
+        type : this.newType,
+        description : this.newDescription
+      }
+    this.reimbursementService.editReimbursement(this.r.id, requestBody).subscribe(
+    {
+      next: (reimbursement) => {
+        //this.r = reimbursement;
+        this.reimbursementUpdated.emit(reimbursement);
+        this.deactivateEditMode();
+      },
+      error: (err) => {
+        console.error("Failed to save reimbursement " + err);
+      }
+    });
+  }
+
+  onAmountChange(value: number): void {
+    this.newAmount = Math.round(value * 100) / 100;
+  }
 
 }
