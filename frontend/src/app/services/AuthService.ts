@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, switchMap, catchError, throwError } from 'rxjs';
 import { User } from '../models/User';
+import { environment } from '../../environments/environment';
 
 
 interface LoginRequest {
@@ -20,8 +21,10 @@ const TOKEN_KEY = 'ers_token';
 })
 
 export class AuthService {
-  private readonly loginUrl = "http://localhost:8081/api/auth/login";
-    private readonly meUrl = "http://localhost:8081/api/users/me";
+
+    //todo: put into environment variables 
+    private readonly loginUrl = `${environment.apiUrl}/auth/login`;
+    private readonly meUrl = `${environment.apiUrl}/users/me`;
  
     // Reactive current-user state. Components read this directly (currentUser())
     // instead of each one re-fetching /users/me on its own.
@@ -72,7 +75,7 @@ export class AuthService {
                 return throwError(() => err);
             })
         );
-    }
+    } 
  
     private storeToken(token: string): void {
         localStorage.setItem(TOKEN_KEY, token);

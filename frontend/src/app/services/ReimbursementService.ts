@@ -5,14 +5,14 @@ import { Reimbursement, ReimbursementStatus } from "../models/Reimbursement";
 import { CreateReimbursementRequest } from "../dtos/requests/CreateReimbursementRequest";
 import { EditReimbursementRequest } from "../dtos/requests/EditReimbursement";
 import { ResolveReimbursementRequest } from "../dtos/requests/ResolveReimbursementRequest";
+import { environment } from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ReimbursementService {
 
-    //Note: set localhost to 8081
-    private readonly url = "http://localhost:8081/api/reimbursements";
+    private readonly url = `${environment.apiUrl}/reimbursements`;
 
     constructor(private http : HttpClient) {};
 

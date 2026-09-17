@@ -1,3 +1,6 @@
+### Environmental variables ###
+.env
+
 HELP.md
 backend/target/
 .mvn/wrapper/maven-wrapper.jar
