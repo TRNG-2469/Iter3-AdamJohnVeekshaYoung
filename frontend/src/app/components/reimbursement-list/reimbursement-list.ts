@@ -4,6 +4,7 @@ import { Reimbursement } from '../../models/Reimbursement';
 import { Input } from '@angular/core';
 import { User } from '../../models/User';
 import { ReimbursementService } from '../../services/ReimbursementService';
+import { Department } from '../../models/Department';
 
 @Component({
   selector: 'app-reimbursement-list',
@@ -24,15 +25,22 @@ export class ReimbursementList implements OnInit, OnChanges {
   @Input()
   filtered_department!: string;
 
+  @Input()
+  userMap!: Record<number, User>
+
+  @Input()
+  departmentMap!: Record<number, Department>
+
   constructor(private reimbursementService : ReimbursementService) { }
 
   ngOnInit() {
     this.applyFilter();
   }
 
-    ngOnChanges(changes: SimpleChanges): void {
-      if (changes['filtered_status'] || changes['filtered_department']){
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['filtered_status'] || changes['filtered_department']){
       this.applyFilter();
+      //console.log(this.departmentMap);
     }
   }
 
