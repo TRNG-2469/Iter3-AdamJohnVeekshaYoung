@@ -1,7 +1,10 @@
 <div class="register-container">
-  <h2 id="title">Register New User</h2>
 
   <form (ngSubmit)="onRegister()">
+
+    <h2 id="title">Register New User</h2>
+
+
     <div class="entry">
       <label for="firstName">First Name:</label>
       <input type="text" id="firstName" [(ngModel)]="formData.firstName" name="firstName" required>

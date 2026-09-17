@@ -26,7 +26,7 @@ form {
   align-content: center;
   font-size: 1.5em;
   gap: 10px;
-  padding: 4rem 2rem 2rem 2rem;
+  padding: 1.2rem 2rem 2rem 2rem;
   border-radius: 25px;
   box-shadow: 8px 6px black;
   background-color: #fff;
@@ -50,6 +50,11 @@ form {
   width: 10rem;
 }
 
+h2 {
+  font-size: 1.8rem;
+  text-align: center;
+}
+
 #loginButton {
   padding: 10px 20px;
   background-color: #2563eb;
@@ -62,6 +67,7 @@ form {
 
   font-size: 15px;
   font-weight: 600;
+  margin-top: 1.6rem;
 
   cursor: pointer;
 
@@ -110,4 +116,9 @@ form {
 .entry input,
 .entry select {
   margin-top: 6px;
+}
+
+#ers {
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
 }
