@@ -30,13 +30,13 @@ export class ReimbursementList implements OnInit, OnChanges {
     this.applyFilter();
   }
 
-    ngOnChanges(changes: SimpleChanges): void {
-      if (changes['filtered_status'] || changes['filtered_department']){
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['filtered_status'] || changes['filtered_department']){
       this.applyFilter();
     }
   }
 
-    applyFilter() {
+  applyFilter() {
     // Convert department string to a number if present, since backend expects Integer
     const deptId = this.filtered_department ? Number(this.filtered_department) : undefined;
     const status = this.filtered_status || undefined;
@@ -50,6 +50,12 @@ export class ReimbursementList implements OnInit, OnChanges {
         console.error("Failed to fetch filtered reimbursements " + err);
       }
     });
+  }
 
-}
+  onReimbursementUpdated(updated: Reimbursement): void {
+    this.reimbursements.update(list =>
+      list.map(r => r.id === updated.id ? updated : r)
+    );
+  }
+
 }
