@@ -1,15 +1,16 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Reimbursement } from '../../models/Reimbursement';
 import { User } from '../../models/User';
-import { CurrencyPipe} from '@angular/common';
+import { CurrencyPipe, DatePipe} from '@angular/common';
 import { ReimbursementService } from '../../services/ReimbursementService';
 import { EditReimbursementRequest } from '../../dtos/requests/EditReimbursement';
 import { ReimbursementType } from '../../models/Reimbursement';
 import { FormsModule } from '@angular/forms';
+import { Department } from '../../models/Department';
 
 @Component({
   selector: 'tr[app-reimbursement-component]',
-  imports: [CurrencyPipe, FormsModule],
+  imports: [CurrencyPipe, DatePipe, FormsModule],
   templateUrl: './reimbursement-component.html',
   styleUrl: './reimbursement-component.css',
 })
@@ -20,6 +21,15 @@ export class ReimbursementComponent {
 
   @Input()
   currentUser! : User;
+
+  @Input()
+  userMap! : Record<number, User>;
+
+  @Input()
+  departmentMap! : Record<number, Department>;
+
+  @Input() 
+  historyMode! : boolean; 
 
   @Output()
   reimbursementUpdated = new EventEmitter<Reimbursement>();
@@ -120,6 +130,26 @@ export class ReimbursementComponent {
 
   onAmountChange(value: number): void {
     this.newAmount = Math.round(value * 100) / 100;
+  }
+
+  get author() : User | undefined {
+    return this.userMap[this.r.authorId];
+  }
+
+  get department() : Department | undefined {
+    if (!this.author) {
+      return undefined;
+    }
+
+    return this.departmentMap[this.author.departmentId];
+  }
+
+  get resolver() : User | null {
+    if (this.r.resolverId === null) {
+      return null;
+    }
+
+    return this.userMap[this.r.resolverId];
   }
 
 }

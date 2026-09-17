@@ -6,7 +6,20 @@
             <th>Amount</th>
             <th>Type</th>
             <th>Description</th>
-            <th>Actions</th>
+            <th>Department</th>
+            <th>Requester</th>
+
+            @if(historyMode) {
+                <th>Resolver</th>
+            }
+
+            <th>Submit Date</th>
+
+            @if(!historyMode) {
+                <th>Actions</th>
+            } @else {
+                <th>Resolved Date</th>
+            }
         </tr>
     </thead>
 
@@ -16,9 +29,13 @@
             <tr app-reimbursement-component
                 [r] = "r"
                 [currentUser] = "currentUser"
+                [userMap]="userMap"
+                [departmentMap]="departmentMap"
+                [historyMode]="historyMode"
                 (reimbursementUpdated)="onReimbursementUpdated($event)"
                 (resolved)="applyFilter()"
-                (deleted)="applyFilter()">
+                (deleted)="applyFilter()"
+                >
             </tr>
         }
     </tbody>

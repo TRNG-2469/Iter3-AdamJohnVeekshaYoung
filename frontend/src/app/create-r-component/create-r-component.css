@@ -1,3 +1,177 @@
 .error {
     color: red;
 }
+
+/* =========================
+   DIALOG TITLE
+   ========================= */
+
+h2[mat-dialog-title] {
+  margin: 0;
+  padding: 22px 24px 12px;
+
+  font-size: 22px;
+  font-weight: 600;
+
+  color: #202124;
+}
+
+
+/* =========================
+   DIALOG CONTENT
+   ========================= */
+
+mat-dialog-content {
+  min-width: 420px;
+  padding: 12px 24px 20px !important;
+}
+
+#createReimbursementForm {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+
+/* =========================
+   FORM ENTRIES
+   ========================= */
+
+.entry {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.entry label {
+  font-size: 13px;
+  font-weight: 500;
+
+  color: #4b5563;
+}
+
+
+/* =========================
+   INPUTS
+   ========================= */
+
+.entry input,
+.entry select,
+.entry textarea {
+  width: 100%;
+
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+
+  background: white;
+  color: #374151;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  box-sizing: border-box;
+}
+
+.entry input,
+.entry select {
+  height: 40px;
+
+  padding: 0 10px;
+}
+
+.entry textarea {
+  min-height: 100px;
+
+  padding: 10px;
+
+  resize: vertical;
+}
+
+
+/* Same focus style as your filters */
+.entry input:focus,
+.entry select:focus,
+.entry textarea:focus {
+  outline: none;
+
+  border-color: #0d6efd;
+
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.12);
+}
+
+
+/* =========================
+   ERROR
+   ========================= */
+
+.error {
+  margin: -6px 0 0;
+
+  color: #dc3545;
+
+  font-size: 12px;
+}
+
+
+/* =========================
+   ACTION AREA
+   ========================= */
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+
+  padding: 16px 24px 20px !important;
+
+  border-top: 1px solid #e5e7eb;
+}
+
+
+/* Both buttons */
+mat-dialog-actions button {
+  height: 38px;
+
+  padding: 0 16px;
+
+  border-radius: 6px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+
+/* Cancel */
+mat-dialog-actions button[type="button"] {
+  border: 1px solid #d1d5db;
+
+  background: white;
+  color: #374151;
+}
+
+mat-dialog-actions button[type="button"]:hover {
+  background: #f5f7fa;
+}
+
+
+/* Submit */
+mat-dialog-actions button[type="submit"] {
+  border: 1px solid #0d6efd;
+
+  background: #0d6efd;
+  color: white;
+
+  font-weight: 600;
+}
+
+mat-dialog-actions button[type="submit"]:hover {
+  background: #0b5ed7;
+  border-color: #0b5ed7;
+}
+
+mat-dialog-actions button:active {
+  transform: translateY(1px);
+}

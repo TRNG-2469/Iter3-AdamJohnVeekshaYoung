@@ -4,6 +4,7 @@ import { Reimbursement } from '../../models/Reimbursement';
 import { Input } from '@angular/core';
 import { User } from '../../models/User';
 import { ReimbursementService } from '../../services/ReimbursementService';
+import { Department } from '../../models/Department';
 
 @Component({
   selector: 'app-reimbursement-list',
@@ -27,6 +28,12 @@ export class ReimbursementList implements OnInit, OnChanges {
   //shows reimbursement history instead of the filtered list when true
   @Input()
   historyMode : boolean = false;
+
+  @Input()
+  userMap!: Record<number, User>
+
+  @Input()
+  departmentMap!: Record<number, Department>
 
   constructor(private reimbursementService : ReimbursementService) { }
 
@@ -53,7 +60,6 @@ export class ReimbursementList implements OnInit, OnChanges {
       });
       return;
     }
-
 
     // Convert department string to a number if present, since backend expects Integer
     const deptId = this.filtered_department ? Number(this.filtered_department) : undefined;
