@@ -7,6 +7,9 @@
     <td>{{r.description}}</td>
     <td>{{department?.departmentName}}</td>
     <td>{{author?.firstName}} {{author?.lastName}}</td>
+    <td>{{r.submittedAt | date:'shortDate'}}</td>
+    
+    @if (!historyMode) {
     <td>
         @if (
             r.authorId === currentUser.id &&
@@ -23,6 +26,10 @@
                 <button id="{{r.id}}" (click)="deny()">Deny</button>
             }
     </td>
+    } @else {
+        <td>{{r.resolvedAt === null ? 'N/A' : r.resolvedAt | date:'shortDate'}}</td>
+        <td>{{resolver === null ? 'N/A' : `${resolver.firstName} ${resolver.lastName}`}}</td>
+    }
 } @else {
     <td>
         $<input type="number" name="new-amount" min="0.01" max="999999" step="0.01" required="true" [(ngModel)]="newAmount" (ngModelChange)="onAmountChange($event)">

@@ -8,7 +8,14 @@
             <th>Description</th>
             <th>Department</th>
             <th>Requester</th>
-            <th>Actions</th>
+            <th>Submit Date</th>
+
+            @if(!historyMode) {
+                <th>Actions</th>
+            } @else {
+                <th>Resolved Date</th>
+                <th>Resolver</th>
+            }
         </tr>
     </thead>
 
@@ -20,6 +27,7 @@
                 [currentUser] = "currentUser"
                 [userMap]="userMap"
                 [departmentMap]="departmentMap"
+                [historyMode]="historyMode"
                 (reimbursementUpdated)="onReimbursementUpdated($event)"
                 (resolved)="applyFilter()"
                 (deleted)="applyFilter()"
