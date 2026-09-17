@@ -53,6 +53,9 @@
 } @else {
     <td>
         $<input type="number" name="new-amount" min="0.01" max="999999" step="0.01" required="true" [(ngModel)]="newAmount" (ngModelChange)="onAmountChange($event)">
+        @if (editError) {
+            <p class="error">{{ editError }}</p>
+        }
     </td>
     <td>
         <select name="new-type" [(ngModel)]="newType">
