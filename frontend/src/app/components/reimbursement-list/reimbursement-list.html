@@ -16,7 +16,7 @@
             <tr app-reimbursement-component
                 [r] = "r"
                 [currentUser] = "currentUser"
-                (reimbursementUpdated)="onReimbursementUpdated($event)">
+                (reimbursementUpdated)="onReimbursementUpdated($event)"
                 (resolved)="applyFilter()"
                 (deleted)="applyFilter()">
             </tr>
