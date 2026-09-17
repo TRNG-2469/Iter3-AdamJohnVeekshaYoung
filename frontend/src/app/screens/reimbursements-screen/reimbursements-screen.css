@@ -1,0 +1,141 @@
+.primary-button {
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 14px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #0d6efd;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.primary-button:hover {
+  background: #0b5ed7;
+}
+
+.plus {
+  font-size: 22px;
+  line-height: 14px;
+}
+
+.reimbursement-card {
+  background: white;
+
+  border: 1px solid #dce2e8;
+  border-radius: 7px;
+  margin-top: 12px;
+
+  padding: 22px 28px;
+
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.content {
+  padding: 32px 40px 60px;
+}
+
+.reimbursement-card {
+  background: white;
+
+  border: 1px solid #dce2e8;
+  border-radius: 7px;
+
+  padding: 22px 28px;
+
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.top-menu {
+  display: flex;
+  align-items: center;
+}
+
+.top-menu h2 {
+  margin: 0;
+}
+
+.buttons-section {
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#filterForm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 0;
+}
+
+
+/* Filter labels */
+#filterForm label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b5563;
+
+  margin-left: 6px;
+}
+
+#filterForm select {
+  height: 38px;
+  min-width: 120px;
+
+  padding: 0 32px 0 10px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+
+  background: white;
+  color: #374151;
+
+  font-size: 14px;
+  font-family: inherit;
+
+  cursor: pointer;
+}
+
+#department {
+  min-width: 150px;
+}
+
+#filterForm button, #logout {
+  height: 38px;
+
+  padding: 0 16px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+
+  background: white;
+  color: #374151;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+#filterForm button:hover, #logout {
+  background: #f3f4f6;
+}
+
+.auth {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}

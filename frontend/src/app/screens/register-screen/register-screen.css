@@ -22,8 +22,9 @@
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
 }
+
 
 form {
   display: flex;
@@ -47,6 +48,11 @@ form {
 
 .entry {
   width: 100%;
+}
+
+.entry input,
+.entry select {
+  margin-top: 6px;
 }
 
 #radio {
@@ -99,4 +105,56 @@ form {
   background-color: white;
 
   box-sizing: border-box;
+}
+
+#form-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  margin-top: 10px;
+}
+
+#form-buttons button {
+  width: 5rem;
+  height: 2.5rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid #d8dee8;
+  border-radius: 5px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+/* Same green style as Save / Approve */
+.register-button {
+  border-color: #b7dfbe !important;
+  background: #effaf1;
+  color: #25833a;
+}
+
+.register-button:hover {
+  background: #e1f5e5;
+}
+
+/* Same neutral style as Cancel */
+.cancel-button {
+  border-color: #d8dee8 !important;
+  background: white;
+  color: #5f6773;
+}
+
+.cancel-button:hover {
+  background: #f5f7fa;
 }

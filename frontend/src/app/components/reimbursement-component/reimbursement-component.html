@@ -7,10 +7,15 @@
     <td>{{r.description}}</td>
     <td>{{department?.departmentName}}</td>
     <td>{{author?.firstName}} {{author?.lastName}}</td>
+
+    @if(historyMode) {
+        <td>{{resolver === null ? 'N/A' : `${resolver.firstName} ${resolver.lastName}`}}</td>
+    }
+
     <td>{{r.submittedAt | date:'shortDate'}}</td>
     
     @if (!historyMode) {
-    <td>
+    <td class="actions">
         @if (
             r.authorId === currentUser.id &&
             r.status === "PENDING"
@@ -22,17 +27,29 @@
             currentUser.role === "MANAGER" &&
             r.status === "PENDING" &&
             r.authorId !== currentUser.id) {
-                <button id="{{r.id}}" (click)="approve()">Approve</button>
-                <button id="{{r.id}}" (click)="deny()">Deny</button>
+                <button id="{{r.id}}" (click)="approve()" class="approve">Approve</button>
+                <button id="{{r.id}}" (click)="deny()" class="deny">Deny</button>
             }
     </td>
     } @else {
         <td>{{r.resolvedAt === null ? 'N/A' : r.resolvedAt | date:'shortDate'}}</td>
-        <td>{{resolver === null ? 'N/A' : `${resolver.firstName} ${resolver.lastName}`}}</td>
     }
 } @else {
     <td>
-        $<input type="number" name="new-amount" min="0.01" max="999999" step="0.01" required="true" [(ngModel)]="newAmount" (ngModelChange)="onAmountChange($event)">
+        <div class="currency-input">
+            <span>$</span>
+
+            <input
+                type="number"
+                name="new-amount"
+                min="0.01"
+                max="999999"
+                step="0.01"
+                required
+                [(ngModel)]="newAmount"
+                (ngModelChange)="onAmountChange($event)">
+        </div>
+
         @if (editError) {
             <p class="error">{{ editError }}</p>
         }
@@ -50,8 +67,8 @@
     <td>
         <input type="text" name="new-description" maxLength="255" [(ngModel)]="newDescription">
     </td>
-    <td>
-        <button id="{{r.id}}" (click)="saveChanges()">Save</button>
-        <button id="{{r.id}}" (click)="deactivateEditMode()">Cancel</button>
+    <td class="edit-actions">
+        <button id="{{r.id}}" (click)="saveChanges()" class="edit-button save">Save</button>
+        <button id="{{r.id}}" (click)="deactivateEditMode()" class="edit-button cancel">Cancel</button>
     </td>
 }

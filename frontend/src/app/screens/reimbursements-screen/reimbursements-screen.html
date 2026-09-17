@@ -1,72 +1,77 @@
-@if (currentUser(); as currentUser) {
-<p>
-  Logged in as:
-  <strong id="username">{{currentUser.firstName}}</strong>
-  (<span id="role">{{currentUser.role}}</span>)
-</p>
 
+<main class="content">
 
-<hr>
+  @if (currentUser(); as currentUser) {
+  
+  <div class="auth">
+    <p>
+      Logged in as:
+      <strong id="username">{{currentUser.firstName}}</strong>
+      (<span id="role">{{currentUser.role}}</span>)
+    </p>
 
-<h2>Reimbursement Manager</h2>
-
-@if (!viewingHistory()){
-  <form id="filterForm" (submit)="$event.preventDefault(); applyFilter()">
-      <label for="status">Status:</label>
-
-      <select id="status" [(ngModel)]="selected_Status" name="status">
-          <option value="">All</option>
-          <option value="PENDING">Pending</option>
-          <option value="APPROVED">Approved</option>
-          <option value="DENIED">Denied</option>
-      </select>
-
-    @if (currentUser.role === 'MANAGER') {
-    <label for="department">Department:</label>
-
-    <select id="department" [(ngModel)]="selected_Department" name="department">
-      <option value="">All</option>
-      @for (dept of departments(); track dept.departmentId){
-      <option [value]="dept.departmentId">{{ dept.departmentName }}</option>
-      }
-    </select>
-    }
-
-      <button type="submit">Filter</button>
-  </form>
-
-  <div>
-    <button (click)="openModal()">Create Reimbursement</button>
+    <button id="logout" routerLink="/">Logout</button>
   </div>
-}
 
+  <div class="top-menu">
+      <h2>Reimbursement Manager</h2>
+  
+      <div class = "buttons-section">
+          @if (!viewingHistory()){
+            <form id="filterForm" (submit)="$event.preventDefault(); applyFilter()">
+                <label for="status">Status:</label>
 
-<div>
-    @if (currentUser.role === 'MANAGER') {
-    <button id="historyButton" (click)="toggleHistory()">
-        {{ viewingHistory() ? 'Back to Reimbursements' : 'Reimbursement History' }}
-    </button>
-    }
+                <select id="status" [(ngModel)]="selected_Status" name="status">
+                    <option value="">All</option>
+                    <option value="PENDING">Pending</option>
+                    <option value="APPROVED">Approved</option>
+                    <option value="DENIED">Denied</option>
+                </select>
 
-    <button id="ownReimbursementsButton" hidden>
-        See Own Reimbursements
-    </button>
-</div>
+                @if (currentUser.role === 'MANAGER') {
+                  <label for="department">Department:</label>
 
-<!-- Only loads the reimbursement list once it is nonnull-->
+                  <select id="department" [(ngModel)]="selected_Department" name="department">
+                    <option value="">All</option>
+                    @for (dept of departments(); track dept.departmentId){
+                      <option [value]="dept.departmentId">{{ dept.departmentName }}</option>
+                    }
+                  </select>
+                }
 
-    <app-reimbursement-list
-      [currentUser] = "currentUser"
-      [filtered_status] = "filtered_status"
-      [filtered_department]="filtered_department"
-      [historyMode]="viewingHistory()"
-      [userMap]="userMap()"
-      [departmentMap]="departmentMap()">
-    </app-reimbursement-list>
+                <button type="submit">Filter</button>
+              </form>
+          
+            <button (click)="openModal()" class="primary-button">Create Reimbursement</button>     
+        }
 
+          @if (currentUser.role === 'MANAGER') {
+            <button id="historyButton" (click)="toggleHistory()" class="primary-button">
+                {{ viewingHistory() ? 'Back to Reimbursements' : 'Reimbursement History' }}
+            </button>
+          }
+          
+          <button id="ownReimbursementsButton" hidden>
+              See Own Reimbursements
+          </button>
+      </div>
+  </div>
 
-<p id="error"></p>
+  <section class="reimbursement-card">
+  
+      <!-- Only loads the reimbursement list once it is nonnull-->
 
-<button id="logout" routerLink="/">Logout</button>
+          <app-reimbursement-list
+            [currentUser] = "currentUser"
+            [filtered_status] = "filtered_status"
+            [filtered_department]="filtered_department"
+            [historyMode]="viewingHistory()"
+            [userMap]="userMap()"
+            [departmentMap]="departmentMap()">
+          </app-reimbursement-list>
 
-}
+      <p id="error"></p>
+  
+  </section>
+  }
+</main>

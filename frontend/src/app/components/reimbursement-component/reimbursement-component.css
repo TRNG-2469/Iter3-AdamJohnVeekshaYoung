@@ -3,3 +3,187 @@
     font-size: 12px;
     margin: 2px 0 0;
 }
+
+td {
+  padding: 17px 14px;
+
+  color: #303642;
+
+  vertical-align: middle;
+}
+
+td.amount {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.actions button {
+  width: 4rem;
+  height: 2.2rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid #d8dee8;
+  border-radius: 5px;
+
+  background: white;
+
+  cursor: pointer;
+}
+
+.actions button:hover {
+  background: #f5f7fa;
+}
+
+.actions .approve {
+  border-color: #b7dfbe;
+
+  background: #effaf1;
+  color: #35a04b;
+}
+
+.actions .approve:hover {
+  background: #e1f5e5;
+}
+
+.actions .deny {
+  border-color: #f0b6b6;
+
+  background: #fff2f2;
+  color: #e23c3c;
+}
+
+.actions .deny:hover {
+  background: #fde6e6;
+}
+
+
+.actions .edit {
+  color: #0d6efd;
+}
+
+
+.actions .delete {
+  color: #dc3545;
+}
+
+.edit-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.edit-button {
+  width: 4rem;
+  height: 2.2rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid #d8dee8;
+  border-radius: 5px;
+
+  background: white;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.edit-button.cancel, .edit-button.save {
+  border-color: #d8dee8;
+  background: white;
+  color: #5f6773;
+}
+
+.edit-button.cancel:hover, .edit-button.save:hover {
+  background: #f5f7fa;
+}
+
+td input,
+td select {
+  height: 38px;
+
+  padding: 0 10px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+
+  background: white;
+  color: #374151;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  box-sizing: border-box;
+}
+
+td input[type="number"] {
+  width: 110px;
+}
+
+td select {
+  min-width: 150px;
+
+  cursor: pointer;
+}
+
+td input[type="text"] {
+  width: 100%;
+  min-width: 180px;
+}
+
+td input:focus,
+td select:focus {
+  outline: none;
+
+  border-color: #0d6efd;
+
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.12);
+}
+
+td input.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 12px;
+  margin: 4px 0 0;
+}
+
+.currency-input {
+  position: relative;
+  width: 110px;
+}
+
+.currency-input span {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #6b7280;
+
+  pointer-events: none;
+}
+
+.currency-input input {
+  width: 100% !important;
+  padding-left: 23px;
+}

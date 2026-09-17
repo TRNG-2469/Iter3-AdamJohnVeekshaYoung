@@ -8,13 +8,17 @@
             <th>Description</th>
             <th>Department</th>
             <th>Requester</th>
+
+            @if(historyMode) {
+                <th>Resolver</th>
+            }
+
             <th>Submit Date</th>
 
             @if(!historyMode) {
                 <th>Actions</th>
             } @else {
                 <th>Resolved Date</th>
-                <th>Resolver</th>
             }
         </tr>
     </thead>
