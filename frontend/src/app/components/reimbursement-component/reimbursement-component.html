@@ -1,24 +1,50 @@
 <!-- Changed to tables via proj requirements, added pipes instead of manually doing ourselves-->
 <td>{{r.id}}</td>
 <td>{{r.status}}</td>
-<td>{{r.amount | currency:'USD'}}</td>
-<td>{{r.type}}</td>
-<td>{{r.description}}</td>
-<td>{{department?.departmentName}}</td>
-<td>{{author?.firstName}} {{author?.lastName}}</td>
-<td>
-    @if (
-        r.authorId === currentUser.id &&
-        r.status === "PENDING"
-        ) {
-            <button id="{{r.id}}">Edit</button>
-            <button id="{{r.id}}">Delete</button>
+@if (!editMode) {
+    <td>{{r.amount | currency:'USD'}}</td>
+    <td>{{r.type}}</td>
+    <td>{{r.description}}</td>
+    <td>{{department?.departmentName}}</td>
+    <td>{{author?.firstName}} {{author?.lastName}}</td>
+    <td>
+        @if (
+            r.authorId === currentUser.id &&
+            r.status === "PENDING"
+            ) {
+                <button id="{{r.id}}" (click)="activateEditMode()">Edit</button>
+                <button id="{{r.id}}" (click)="delete()">Delete</button>
+            }
+        @if (
+            currentUser.role === "MANAGER" &&
+            r.status === "PENDING" &&
+            r.authorId !== currentUser.id) {
+                <button id="{{r.id}}" (click)="approve()">Approve</button>
+                <button id="{{r.id}}" (click)="deny()">Deny</button>
+            }
+    </td>
+} @else {
+    <td>
+        $<input type="number" name="new-amount" min="0.01" max="999999" step="0.01" required="true" [(ngModel)]="newAmount" (ngModelChange)="onAmountChange($event)">
+        @if (editError) {
+            <p class="error">{{ editError }}</p>
         }
-    @if (
-        currentUser.role === "MANAGER" &&
-        r.status === "PENDING" &&
-        r.authorId !== currentUser.id) {
-            <button id="{{r.id}}">Approve</button>
-            <button id="{{r.id}}">Deny</button>
-        }
-</td>
+    </td>
+    <td>
+        <select name="new-type" [(ngModel)]="newType">
+            <option value="TRAVEL">TRAVEL</option>
+            <option value="FOOD">FOOD</option>
+            <option value="LODGING">LODGING</option>
+            <option value="MEDICAL">MEDICAL</option>
+            <option value="TRANSPORTATION">TRANSPORTATION</option>
+            <option value="OTHER">OTHER</option>
+        </select>
+    </td>
+    <td>
+        <input type="text" name="new-description" maxLength="255" [(ngModel)]="newDescription">
+    </td>
+    <td>
+        <button id="{{r.id}}" (click)="saveChanges()">Save</button>
+        <button id="{{r.id}}" (click)="deactivateEditMode()">Cancel</button>
+    </td>
+}

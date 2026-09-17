@@ -36,6 +36,8 @@ export class ReimbursementsScreen implements OnInit {
   selected_Department: string = '';
   filtered_department: string = '';
 
+  viewingHistory = signal(false);
+
   private departmentService=inject(DepartmentService);
   private dialog = inject(MatDialog);
 
@@ -108,6 +110,10 @@ export class ReimbursementsScreen implements OnInit {
   applyFilter() {
     this.filtered_status=this.selected_Status;
     this.filtered_department = this.selected_Department;
+  }
+
+  toggleHistory() {
+    this.viewingHistory.update(viewingHistory => !viewingHistory);
   }
 
   openModal() { 

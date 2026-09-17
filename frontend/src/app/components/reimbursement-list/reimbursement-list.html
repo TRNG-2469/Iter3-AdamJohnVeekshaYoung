@@ -15,11 +15,15 @@
     <tbody>
         <!-- Note: apparently with tables, need to provide attribute selector or angular gets angry-->
         @for (r of reimbursements(); track r.id) {
-            <tr app-reimbursement-component 
-                [r] = "r" 
+            <tr app-reimbursement-component
+                [r] = "r"
                 [currentUser] = "currentUser"
                 [userMap]="userMap"
-                [departmentMap]="departmentMap">
+                [departmentMap]="departmentMap"
+                (reimbursementUpdated)="onReimbursementUpdated($event)"
+                (resolved)="applyFilter()"
+                (deleted)="applyFilter()"
+                >
             </tr>
         }
     </tbody>

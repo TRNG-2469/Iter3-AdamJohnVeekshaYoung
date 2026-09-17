@@ -25,6 +25,10 @@ export class ReimbursementList implements OnInit, OnChanges {
   @Input()
   filtered_department!: string;
 
+  //shows reimbursement history instead of the filtered list when true
+  @Input()
+  historyMode : boolean = false;
+
   @Input()
   userMap!: Record<number, User>
 
@@ -38,13 +42,25 @@ export class ReimbursementList implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['filtered_status'] || changes['filtered_department']){
+    if (changes['filtered_status'] || changes['filtered_department'] || changes['historyMode']){
       this.applyFilter();
-      //console.log(this.departmentMap);
     }
   }
 
-    applyFilter() {
+  applyFilter() {
+
+    if (this.historyMode) {
+      this.reimbursementService.getReimbursementHistory().subscribe({
+        next: (reimbursementData) => {
+          this.reimbursements.set(reimbursementData);
+        },
+        error: (err) => {
+          console.error("Failed to fetch reimbursement history " + err);
+        }
+      });
+      return;
+    }
+
     // Convert department string to a number if present, since backend expects Integer
     const deptId = this.filtered_department ? Number(this.filtered_department) : undefined;
     const status = this.filtered_status || undefined;
@@ -58,6 +74,12 @@ export class ReimbursementList implements OnInit, OnChanges {
         console.error("Failed to fetch filtered reimbursements " + err);
       }
     });
+  }
 
-}
+  onReimbursementUpdated(updated: Reimbursement): void {
+    this.reimbursements.update(list =>
+      list.map(r => r.id === updated.id ? updated : r)
+    );
+  }
+
 }
