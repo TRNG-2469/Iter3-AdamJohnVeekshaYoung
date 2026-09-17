@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
             deptId = d.getDepartmentId();
         }
 
-        return new UserResponse(u.getId(), u.getFirstName(), u.getFirstName(), u.getUsername(),
+        return new UserResponse(u.getId(), u.getFirstName(), u.getLastName(), u.getUsername(),
             u.getRole(), deptId
         );
     }

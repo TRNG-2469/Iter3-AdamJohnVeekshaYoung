@@ -2,7 +2,8 @@ table {
   width: 100%;
   border-collapse: collapse;
   background: white;
-  font-size: 14px;
+  font-size: 13px;
+  table-layout: fixed;
 }
 
 thead {
@@ -30,3 +31,16 @@ tbody tr {
 tbody tr:hover {
   background-color: #f8faff;
 }
+
+
+#id-column          { width: 2%; }
+#status-column      { width: 7%; }
+#amount-column      { width: 9%; }
+#type-column        { width: 13%; }
+#description-column { width: 20%; }
+#department-column  { width: 11%; }
+#requester-column   { width: 13%; }
+#resolver-column {width: 13%;}
+#submit-column        { width: 8%; }
+#actions-column     { width: 13%; }
+#resolved-column {width: 8%; }

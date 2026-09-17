@@ -1,12 +1,24 @@
 <!-- Changed to tables via proj requirements, added pipes instead of manually doing ourselves-->
 <td>{{r.id}}</td>
-<td>{{r.status}}</td>
+<td>
+  <span
+    class="status-badge"
+    [class.pending]="r.status === 'PENDING'"
+    [class.approved]="r.status === 'APPROVED'"
+    [class.denied]="r.status === 'DENIED'">
+    {{ r.status }}
+  </span>
+</td>
 @if (!editMode) {
     <td>{{r.amount | currency:'USD'}}</td>
     <td>{{r.type}}</td>
     <td>{{r.description}}</td>
     <td>{{department?.departmentName}}</td>
-    <td>{{author?.firstName}} {{author?.lastName}}</td>
+    <td>{{author?.firstName}} {{author?.lastName}}
+        @if (r.authorId === currentUser.id && currentUser.role === 'MANAGER') {
+            <span class="you-badge">You</span>
+        }
+    </td>
 
     @if(historyMode) {
         <td>{{resolver === null ? 'N/A' : `${resolver.firstName} ${resolver.lastName}`}}</td>

@@ -1,24 +1,24 @@
 <table class="reimbursements">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Status</th>
-            <th>Amount</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Department</th>
-            <th>Requester</th>
+            <th id="id-column">ID</th>
+            <th id="status-column">Status</th>
+            <th id="amount-column">Amount</th>
+            <th id="type-column">Type</th>
+            <th id="description-column">Description</th>
+            <th id="department-column">Department</th>
+            <th id="requester-column">Requester</th>
 
             @if(historyMode) {
-                <th>Resolver</th>
+                <th id="resolver-column">Resolver</th>
             }
 
-            <th>Submit Date</th>
+            <th id="submit-column">Submit Date</th>
 
             @if(!historyMode) {
-                <th>Actions</th>
+                <th id="actions-column">Actions</th>
             } @else {
-                <th>Resolved Date</th>
+                <th id="resolved-column">Resolved Date</th>
             }
         </tr>
     </thead>
