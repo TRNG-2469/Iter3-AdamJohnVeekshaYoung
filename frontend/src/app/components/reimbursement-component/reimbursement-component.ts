@@ -38,6 +38,8 @@ export class ReimbursementComponent {
   newType : ReimbursementType = 'OTHER';
   newDescription : string | null = null;
 
+  editError : string = '';
+
   constructor(private reimbursementService : ReimbursementService, private cdr: ChangeDetectorRef) {
 
   }
@@ -76,14 +78,25 @@ export class ReimbursementComponent {
     this.newAmount = this.r.amount;
     this.newType = this.r.type;
     this.newDescription = this.r.description;
+    this.editError = '';
     this.editMode = true;
   }
 
   deactivateEditMode(): void {
     this.editMode = false;
+    this.editError = '';
   }
 
   saveChanges(): void {
+    const amount = Number(this.newAmount);
+
+    if (amount >= 1000000 || amount < 0) {
+      this.editError = 'Value cannot be greater than 1,000,000 or less than 0';
+      return;
+    }
+
+    this.editError = '';
+
     const requestBody : EditReimbursementRequest = {
         amount : this.newAmount,
         type : this.newType,
@@ -98,6 +111,9 @@ export class ReimbursementComponent {
       },
       error: (err) => {
         console.error("Failed to save reimbursement " + err);
+        this.editError = err.error?.amount
+          ? 'Value cannot be greater than 1,000,000 or less than 0'
+          : 'Failed to save changes';
       }
     });
   }

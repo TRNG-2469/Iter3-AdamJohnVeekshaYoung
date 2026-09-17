@@ -10,6 +10,7 @@
 
 <h2>Reimbursement Manager</h2>
 
+@if (!viewingHistory()){
 <form id="filterForm" (submit)="$event.preventDefault(); applyFilter()">
     <label for="status">Status:</label>
 
@@ -33,12 +34,17 @@
 
     <button type="submit">Filter</button>
 </form>
+}
 
 
 <div>
     <button (click)="openModal()">Create Reimbursement</button>
 
-    <button id="historyButton" hidden>Reimbursement History</button>
+    @if (currentUser.role === 'MANAGER') {
+    <button id="historyButton" (click)="toggleHistory()">
+        {{ viewingHistory() ? 'Back to Reimbursements' : 'Reimbursement History' }}
+    </button>
+    }
 
     <button id="ownReimbursementsButton" hidden>
         See Own Reimbursements
@@ -50,7 +56,8 @@
     <app-reimbursement-list
       [currentUser] = "currentUser"
       [filtered_status] = "filtered_status"
-      [filtered_department]="filtered_department">
+      [filtered_department]="filtered_department"
+      [historyMode]="viewingHistory()">
     </app-reimbursement-list>
 
 
