@@ -9,7 +9,7 @@ document.querySelector("#registerForm").addEventListener("submit", async (event)
         departmentId: Number(document.querySelector("#department").value),
     };
 
-    const response = await fetch("http://localhost:8081/api/users", {
+    const response = await fetch("/api/users", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -31,7 +31,7 @@ async function loadDepartments() {
 
     const departmentSelect = document.getElementById("department");
 
-    const response = await fetch("http://localhost:8081/api/departments");
+    const response = await fetch("/api/departments");
 
     if (!response.ok) {
         console.error("Failed to load department");
