@@ -28,7 +28,7 @@ export class RegisterScreen implements OnInit {
   errorMessage: string = '';
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:8081/api/departments').subscribe({
+    this.http.get<any[]>('/api/departments').subscribe({
       next: (data) => {
         console.log('Departments response from backend:', data); // Check F12 console to see the exact keys!
         this.departments.set(data);
@@ -40,7 +40,7 @@ export class RegisterScreen implements OnInit {
   }
 
   onRegister(): void {
-    this.http.post('http://localhost:8081/api/users', this.formData).subscribe({
+    this.http.post('/api/users', this.formData).subscribe({
       next: () => {
         // Successfully registered, navigate back to the login page
         this.router.navigate(['/']); // Adjust route if your login page is at a specific path like '/login'
